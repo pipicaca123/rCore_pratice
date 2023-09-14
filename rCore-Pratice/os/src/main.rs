@@ -11,6 +11,8 @@ use core::arch::global_asm;
 // TODO: modify with rust origin logger, not my console one.
 // use log::*;
 global_asm!(include_str!("entry.asm")); // first instruction in kernel
+// linking kernel with application infomation together from ASM file
+global_asm!(include_str!("link_app.S"));
 
 #[no_mangle] // tell compiler not to modify the name
 pub fn rust_main() -> ! {
