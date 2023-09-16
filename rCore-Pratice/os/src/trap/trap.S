@@ -63,5 +63,5 @@
     # release TrapContext on kernel stack
     addi sp, sp, 34*8
     # now sp->kernel stack, sscratch->user stack
-    csrrw sp, sscratch, sp
+    csrrw sp, sscratch, sp # sp: user_stack, sscratch:kernel_stack
     sret
