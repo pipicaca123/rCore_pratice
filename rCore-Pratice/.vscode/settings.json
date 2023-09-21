@@ -7,15 +7,6 @@
     // For Rust Analyzer plugin users:
     "rust-analyzer.cargo.target": "riscv64gc-unknown-none-elf",
     "rust-analyzer.checkOnSave.allTargets": false,
-    "rust-analyzer.linkedProjects": [
-        "/home/user/Workspace/operating_system/rCore_pratice/rCore-Tutorial-v3/os/Cargo.toml",
-        "/home/user/Workspace/operating_system/rCore_pratice/rCore-Tutorial-v3/user/Cargo.toml",
-        "/home/user/Workspace/operating_system/rCore_pratice/rCore-Pratice/user/Cargo.toml",
-        "/home/user/Workspace/operating_system/rCore_pratice/rCore-Pratice/os/Cargo.toml",
-        "./rCore-Pratice/os/Cargo.toml",
-        "./rCore-Pratice/os/Cargo.toml"
-    ],
-    "rust-analyzer.showUnlinkedFileNotification": false,
 //     "rust-analyzer.showUnlinkedFileNotification": false,
 // 	"rust-analyzer.checkOnSave.extraArgs": [
 //         "--target",

@@ -1,21 +1,19 @@
 .altmacro
 .macro SAVE_GP n
-    sd x\n \n*8(sp)
+    sd x\n, \n*8(sp)
 .endm
-
 .macro LOAD_GP n
     ld x\n, \n*8(sp)
 .endm
-
-# save context asm code
     .section .text
     .globl __alltraps
     .globl __restore
-.__alltraps
+    .align 2
+__alltraps:
     csrrw sp, sscratch, sp
     # now sp->kernel stack, sscratch->user stack
     # allocate a TrapContext on kernel stack
-    addi sp, sp, 8*(-34) # point to the last data address
+    addi sp, sp, -34*8
     # save general-purpose registers
     sd x1, 1*8(sp)
     # skip sp(x2), we will save it later
@@ -27,7 +25,6 @@
         SAVE_GP %n
         .set n, n+1
     .endr
-
     # we can use t0/t1/t2 freely, because they were saved on kernel stack
     csrr t0, sstatus
     csrr t1, sepc
@@ -37,10 +34,10 @@
     csrr t2, sscratch
     sd t2, 2*8(sp)
     # set input argument of trap_handler(cx: &mut TrapContext)
-    mv a0, sp # a0: function argment in riscv
+    mv a0, sp
     call trap_handler
 
-.__restore
+__restore:
     # case1: start running app by __restore
     # case2: back to U after handling trap
     mv sp, a0
@@ -63,5 +60,5 @@
     # release TrapContext on kernel stack
     addi sp, sp, 34*8
     # now sp->kernel stack, sscratch->user stack
-    csrrw sp, sscratch, sp # sp: user_stack, sscratch:kernel_stack
+    csrrw sp, sscratch, sp
     sret
